@@ -1,1 +1,0 @@
-<link rel="shortcut icon" href="img/login-signup.png" type="image/x-icon">
