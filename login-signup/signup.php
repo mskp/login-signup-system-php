@@ -1,10 +1,10 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    require 'connection.php';
+    require 'partials/connection.php';
 
     $name = $_POST['name'];
-    $email = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     $con_password = $_POST['c-password'];
 
@@ -13,17 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $rows_returned = mysqli_num_rows($result);
 
     if ($rows_returned > 0) {
-        echo "User already exists";
+        echo "<script>alert('User Already Exists')</script>";
     } elseif ($password <> $con_password) {
-        echo "Password and Confirm password must match";
+        echo "<script>alert('Password and Confirm password must match')</script>";
     } else {
         $pass_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql_query = "INSERT INTO user(`name`, `email`, `password`, `date`) VALUES('$name', '$email', '$pass_hash', 'current_timestamp()')";
         $sql_result = mysqli_query($connect, $sql_query);
         if ($sql_result)
             header('location: index.php');
-        else
-            echo 'Failed. Reason: ' . mysqli_error($connect);
+        // else
+        //     echo 'Failed. Reason: ' . mysqli_error($connect);
     }
 }
 
@@ -37,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="css/login_signup.css">
+    <link rel="stylesheet" href="style/style.css">
+    <?php include 'partials/fav.php'; ?>
 </head>
 
 <body>
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <div class="inp">
-                <input type="text" name="username" id="username" required>
+                <input type="email" name="email" id="email" required>
                 <span></span>
                 <label for="name">Email</label>
             </div>

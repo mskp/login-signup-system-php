@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    require 'connection.php';
+    require 'partials/connection.php';
 
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -18,7 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['loggedin'] = true;
             $_SESSION['name'] = $row['name'];
             header('location: home.php');
+        } else {
+            echo "<script>alert('Incorrect Password')</script>";
         }
+    } else {
+        echo "<script>alert('User does not exist')</script>";
     }
 }
 ?>
@@ -31,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/login_signup.css">
+    <link rel="stylesheet" href="style/style.css">
+    <?php include 'partials/fav.php'; ?>
 </head>
 
 <body>
@@ -41,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action="" method="post">
 
             <div class="inp">
-                <input type="text" name="email" id="email" required>
+                <input type="email" name="email" id="email" required>
                 <span></span>
                 <label for="email">Email</label>
             </div>
@@ -52,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="password">Password</label>
             </div>
 
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" onclick="clear()">
 
             <div class="signup-link">
                 Don't have an account? <a href="signup.php">Sign up</a>
