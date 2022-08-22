@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql_query = "INSERT INTO user(`name`, `email`, `password`, `date`) VALUES('$name', '$email', '$pass_hash', 'current_timestamp()')";
         $sql_result = mysqli_query($connect, $sql_query);
         if ($sql_result)
-            header('location: index.php');
+            header('location: login.php');
         // else
         //     echo 'Failed. Reason: ' . mysqli_error($connect);
     }
